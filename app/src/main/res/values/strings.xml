@@ -2,6 +2,18 @@
     <string name="app_name">LockScreenEdit</string>
     <string name="lockscreen_style_title">圆润何时</string>
     <string name="lockscreen_style_magazine">平齐何时</string>
+    <string name="lockscreen_style_vertical">竖文何时</string>
+    <string name="lockscreen_style_text">文字何时</string>
+    <string name="lockscreen_style_gallery">长廊何时</string>
+    <string name="style_gallery_description"> </string>
+    <string name="lockscreen_style_longer">更长何时</string>
+    <string name="style_longer_description"> </string>
+    <string name="lockscreen_style_classic">经典何时</string>
+    <string name="style_classic_description"> </string>
+    <string name="lockscreen_style_rolling">滚滚何时</string>
+    <string name="style_rolling_description"> </string>
+    <string name="lockscreen_style_anytime">无论何时</string>
+    <string name="style_anytime_description"> </string>
     <string name="exit">退出</string>
     <string name="apply">应用</string>
     <string name="customize">自定义</string>
@@ -28,6 +40,8 @@
     <string name="sunday">星期日</string>
     <string name="style_humanistic_description"> </string>
     <string name="style_magazine_description"> </string>
+    <string name="style_vertical_description"> </string>
+    <string name="style_text_description"> </string>
     <string name="month_january">1月</string>
     <string name="month_february">2月</string>
     <string name="month_march">3月</string>

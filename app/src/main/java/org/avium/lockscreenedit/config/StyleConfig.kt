@@ -26,14 +26,49 @@ object StyleConfig {
             nameResId = R.string.lockscreen_style_magazine,
             previewResId = R.drawable.preview_style_2,
             descriptionResId = R.string.style_magazine_description
+        ),
+        LockscreenStyle(
+            id = 3,
+            nameResId = R.string.lockscreen_style_vertical,
+            previewResId = R.drawable.preview_style_3,
+            descriptionResId = R.string.style_vertical_description
+        ),
+        LockscreenStyle(
+            id = 4,
+            nameResId = R.string.lockscreen_style_text,
+            previewResId = R.drawable.preview_style_4,
+            descriptionResId = R.string.style_text_description
+        ),
+        LockscreenStyle(
+            id = 5,
+            nameResId = R.string.lockscreen_style_gallery,
+            previewResId = R.drawable.preview_style_5,
+            descriptionResId = R.string.style_gallery_description
+        ),
+        LockscreenStyle(
+            id = 6,
+            nameResId = R.string.lockscreen_style_longer,
+            previewResId = R.drawable.preview_style_6,
+            descriptionResId = R.string.style_longer_description
+        ),
+        LockscreenStyle(
+            id = 8,
+            nameResId = R.string.lockscreen_style_classic,
+            previewResId = R.drawable.preview_style_8,
+            descriptionResId = R.string.style_classic_description
+        ),
+        LockscreenStyle(
+            id = 9,
+            nameResId = R.string.lockscreen_style_rolling,
+            previewResId = R.drawable.preview_style_9,
+            descriptionResId = R.string.style_rolling_description
+        ),
+        LockscreenStyle(
+            id = 10,
+            nameResId = R.string.lockscreen_style_anytime,
+            previewResId = R.drawable.preview_style_10,
+            descriptionResId = R.string.style_anytime_description
         )
-        // NEW Like this
-        // LockscreenStyle(
-        //     id = 3,
-        //     nameResId = R.string.your_new_style_name,
-        //     previewResId = R.drawable.your_preview_image,
-        //     descriptionResId = R.string.your_style_description
-        // )
     )
     
 
