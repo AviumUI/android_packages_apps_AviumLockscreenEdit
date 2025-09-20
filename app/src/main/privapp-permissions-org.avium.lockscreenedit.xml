@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-g"?>
+<permissions>
+    <privapp-permissions package="org.avium.lockscreenedit">
+        <permission name="android.permission.WRITE_SETTINGS"/>
+        <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+    </privapp-permissions>
+</permissions>
