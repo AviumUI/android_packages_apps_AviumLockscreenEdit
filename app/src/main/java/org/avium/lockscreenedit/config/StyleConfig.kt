@@ -68,6 +68,42 @@ object StyleConfig {
             nameResId = R.string.lockscreen_style_anytime,
             previewResId = R.drawable.preview_style_10,
             descriptionResId = R.string.style_anytime_description
+        ),
+        LockscreenStyle(
+            id = 11,
+            nameResId = R.string.lockscreen_style_square,
+            previewResId = R.drawable.preview_style_11,
+            descriptionResId = R.string.style_square_description
+        ),
+        LockscreenStyle(
+            id = 12,
+            nameResId = R.string.lockscreen_style_flat,
+            previewResId = R.drawable.preview_style_12,
+            descriptionResId = R.string.style_flat_description
+        ),
+        LockscreenStyle(
+            id = 13,
+            nameResId = R.string.lockscreen_style_fruity,
+            previewResId = R.drawable.preview_style_13,
+            descriptionResId = R.string.style_fruity_description
+        ),
+        LockscreenStyle(
+            id = 14,
+            nameResId = R.string.lockscreen_style_guodian,
+            previewResId = R.drawable.preview_style_14,
+            descriptionResId = R.string.style_guodian_description
+        ),
+        LockscreenStyle(
+            id = 15,
+            nameResId = R.string.lockscreen_style_anhe,
+            previewResId = R.drawable.preview_style_15,
+            descriptionResId = R.string.style_anhe_description
+        ),
+        LockscreenStyle(
+            id = 16,
+            nameResId = R.string.lockscreen_style_last,
+            previewResId = R.drawable.preview_style_16,
+            descriptionResId = R.string.style_last_description
         )
     )
     
