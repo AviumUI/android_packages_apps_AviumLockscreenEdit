@@ -104,6 +104,12 @@ object StyleConfig {
             nameResId = R.string.lockscreen_style_last,
             previewResId = R.drawable.preview_style_16,
             descriptionResId = R.string.style_last_description
+        ),
+        LockscreenStyle(
+            id = 18,
+            nameResId = R.string.lockscreen_style_music,
+            previewResId = R.drawable.preview_style_17,
+            descriptionResId = R.string.style_last_description
         )
     )
     
