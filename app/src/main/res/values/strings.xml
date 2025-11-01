@@ -1,71 +1,93 @@
 <resources>
+    <!-- App Info -->
     <string name="app_name">LockScreenEdit</string>
-    <string name="lockscreen_style_title">圆润何时</string>
-    <string name="lockscreen_style_magazine">平齐何时</string>
-    <string name="lockscreen_style_vertical">竖文何时</string>
-    <string name="lockscreen_style_text">文字何时</string>
-    <string name="lockscreen_style_gallery">长廊何时</string>
-    <string name="style_gallery_description"> </string>
-    <string name="lockscreen_style_longer">更长何时</string>
-    <string name="style_longer_description"> </string>
-    <string name="lockscreen_style_classic">经典何时</string>
-    <string name="style_classic_description"> </string>
-    <string name="lockscreen_style_rolling">滚滚何时</string>
-    <string name="style_rolling_description"> </string>
-    <string name="lockscreen_style_anytime">无论何时</string>
-    <string name="style_anytime_description"> </string>
-    <string name="lockscreen_style_square">果方何时</string>
-    <string name="style_square_description"> </string>
-    <string name="lockscreen_style_flat">果平何时</string>
-    <string name="style_flat_description"> </string>
-    <string name="lockscreen_style_fruity">果味何时</string>
-    <string name="style_fruity_description"> </string>
-    <string name="lockscreen_style_guodian">果典何时</string>
-    <string name="style_guodian_description"> </string>
-    <string name="lockscreen_style_anhe">果安何时</string>
-    <string name="style_anhe_description"> </string>
-    <string name="lockscreen_style_last">最果何时</string>
-    <string name="style_last_description"> </string>
-    <string name="exit">退出</string>
-    <string name="apply">应用</string>
-    <string name="customize">自定义</string>
-    <string name="wallpaper">壁纸</string>
-    <string name="wallpaper_effects">壁纸效果</string>
-    <string name="font_effects">字体效果</string>
-    <string name="depth_of_field">景深</string>
-    <string name="hour_color">小时颜色</string>
-    <string name="minute_color">分钟颜色</string>
-    <string name="blur_clock">模糊时钟</string>
-    <string name="select_color">选择颜色</string>
-    <string name="hex_color_input">16进制颜色 (RRGGBB 或 AARRGGBB)</string>
+
+    <!-- Style Titles -->
+    <string name="lockscreen_style_title">Round time</string>
+    <string name="lockscreen_style_magazine">Magazine time</string>
+    <string name="lockscreen_style_vertical">Vertical time</string>
+    <string name="lockscreen_style_text">Text time</string>
+    <string name="lockscreen_style_gallery">Gallery time</string>
+    <string name="lockscreen_style_longer">Longer time</string>
+    <string name="lockscreen_style_classic">Classic time</string>
+    <string name="lockscreen_style_rolling">Rolling time</string>
+    <string name="lockscreen_style_anytime">Anytime</string>
+    <string name="lockscreen_style_square">Apple style 1</string>
+    <string name="lockscreen_style_flat">Apple style 2</string>
+    <string name="lockscreen_style_fruity">Apple style 3</string>
+    <string name="lockscreen_style_guodian">Apple style 4</string>
+    <string name="lockscreen_style_anhe">Apple style 5</string>
+    <string name="lockscreen_style_last">Apple style 6</string>
+    <string name="lockscreen_style_music">Music time</string>
+
+    <!-- Style Descriptions -->
+    <string name="style_gallery_description">Gallery style clock</string>
+    <string name="style_longer_description">Extended display style</string>
+    <string name="style_classic_description">Traditional clock style</string>
+    <string name="style_rolling_description">Dynamic rolling effect</string>
+    <string name="style_anytime_description">Flexible time display</string>
+    <string name="style_square_description">Square Apple design</string>
+    <string name="style_flat_description">Flat Apple design</string>
+    <string name="style_fruity_description">Colorful Apple style</string>
+    <string name="style_guodian_description">Classic Apple design</string>
+    <string name="style_anhe_description">Elegant Apple style</string>
+    <string name="style_last_description">Latest Apple design</string>
+    <string name="style_humanistic_description">Humanistic design</string>
+    <string name="style_magazine_description">Magazine layout</string>
+    <string name="style_vertical_description">Vertical text display</string>
+    <string name="style_text_description">Text-based clock</string>
+
+    <!-- Common Actions -->
+    <string name="exit">Exit</string>
+    <string name="apply">Apply</string>
+    <string name="customize">Customize</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Wallpaper -->
+    <string name="wallpaper">Wallpaper</string>
+    <string name="wallpaper_effects">Wallpaper Effects</string>
+
+    <!-- Font -->
+    <string name="font_effects">Font Effects</string>
+
+    <!-- Color -->
+    <string name="hour_color">Hour Color</string>
+    <string name="minute_color">Minute Color</string>
+    <string name="select_color">Select Color</string>
+    <string name="hex_color_input">Hex Color (RRGGBB or AARRGGBB)</string>
     <string name="hex_color_placeholder">FF0000</string>
-    <string name="click_to_select">点击选择该颜色</string>
-    <string name="blur_effect">模糊效果</string>
-    <string name="blur_description">开启后时钟将会有模糊效果</string>
-    <string name="confirm">确定</string>
-    <string name="monday">星期一</string>
-    <string name="tuesday">星期二</string>
-    <string name="wednesday">星期三</string>
-    <string name="thursday">星期四</string>
-    <string name="friday">星期五</string>
-    <string name="saturday">星期六</string>
-    <string name="sunday">星期日</string>
-    <string name="style_humanistic_description"> </string>
-    <string name="style_magazine_description"> </string>
-    <string name="style_vertical_description"> </string>
-    <string name="style_text_description"> </string>
-    <string name="month_january">1月</string>
-    <string name="month_february">2月</string>
-    <string name="month_march">3月</string>
-    <string name="month_april">4月</string>
-    <string name="month_may">5月</string>
-    <string name="month_june">6月</string>
-    <string name="month_july">7月</string>
-    <string name="month_august">8月</string>
-    <string name="month_september">9月</string>
-    <string name="month_october">10月</string>
-    <string name="month_november">11月</string>
-    <string name="month_december">12月</string>
-    <string name="date_format">%1$s%2$d日 %3$s</string>
-    <string name="cancel">取消</string>
+    <string name="click_to_select">Click to select this color</string>
+
+    <!-- Blur -->
+    <string name="blur_clock">Blur Clock</string>
+    <string name="blur_effect">Blur Effect</string>
+    <string name="blur_description">Clock will have blur effect when enabled</string>
+    <string name="depth_of_field">Depth of Field</string>
+
+    <!-- Weekdays -->
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    <!-- Months -->
+    <string name="month_january">January</string>
+    <string name="month_february">February</string>
+    <string name="month_march">March</string>
+    <string name="month_april">April</string>
+    <string name="month_may">May</string>
+    <string name="month_june">June</string>
+    <string name="month_july">July</string>
+    <string name="month_august">August</string>
+    <string name="month_september">September</string>
+    <string name="month_october">October</string>
+    <string name="month_november">November</string>
+    <string name="month_december">December</string>
+
+    <!-- Date Format -->
+    <string name="date_format">%1$s%2$d %3$s</string>
 </resources>
