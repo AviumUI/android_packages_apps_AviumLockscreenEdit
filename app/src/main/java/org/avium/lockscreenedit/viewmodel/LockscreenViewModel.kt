@@ -36,16 +36,28 @@ class LockscreenViewModel : ViewModel() {
         styleId: Int, 
         hourColor: Color, 
         minuteColor: Color, 
+        weekdayColor: Color,
+        monthColor: Color,
+        dayColor: Color,
+        dotColor: Color,
         isBlurEnabled: Boolean
     ) {
         val hourColorHex = String.format("%08X", hourColor.toArgb()).takeLast(6)
         val minuteColorHex = String.format("%08X", minuteColor.toArgb()).takeLast(6)
+        val weekdayColorHex = String.format("%08X", weekdayColor.toArgb()).takeLast(6)
+        val monthColorHex = String.format("%08X", monthColor.toArgb()).takeLast(6)
+        val dayColorHex = String.format("%08X", dayColor.toArgb()).takeLast(6)
+        val dotColorHex = String.format("%08X", dotColor.toArgb()).takeLast(6)
         
         SystemSettingsManager.applyCustomColors(
             context, 
             styleId, 
             hourColorHex, 
-            minuteColorHex, 
+            minuteColorHex,
+            weekdayColorHex,
+            monthColorHex,
+            dayColorHex,
+            dotColorHex,
             isBlurEnabled
         )
     }

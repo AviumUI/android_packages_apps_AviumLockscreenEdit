@@ -82,8 +82,16 @@ fun LockscreenEditScreen(
     
     var hourColor by remember { mutableStateOf(Color.White) }
     var minuteColor by remember { mutableStateOf(Color.White) }
+    var weekdayColor by remember { mutableStateOf(Color.White) }
+    var monthColor by remember { mutableStateOf(Color.White) }
+    var dayColor by remember { mutableStateOf(Color.White) }
+    var dotColor by remember { mutableStateOf(Color.White) }
     var showHourColorPicker by remember { mutableStateOf(false) }
     var showMinuteColorPicker by remember { mutableStateOf(false) }
+    var showWeekdayColorPicker by remember { mutableStateOf(false) }
+    var showMonthColorPicker by remember { mutableStateOf(false) }
+    var showDayColorPicker by remember { mutableStateOf(false) }
+    var showDotColorPicker by remember { mutableStateOf(false) }
     var showBlurDialog by remember { mutableStateOf(false) }
     var isBlurEnabled by remember { mutableStateOf(false) }
     
@@ -108,7 +116,7 @@ fun LockscreenEditScreen(
         val day = Random.nextInt(1, 29)
         val month = months[Random.nextInt(months.size)]
         val weekday = weekdays[Random.nextInt(weekdays.size)]
-        "$month${day}日 $weekday"
+        Triple(month, day, weekday)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -139,6 +147,10 @@ fun LockscreenEditScreen(
                         styleId = styleId,
                         hourColor = hourColor,
                         minuteColor = minuteColor,
+                        weekdayColor = weekdayColor,
+                        monthColor = monthColor,
+                        dayColor = dayColor,
+                        dotColor = dotColor,
                         isBlurEnabled = isBlurEnabled
                     )
                     navController.popBackStack()
@@ -158,13 +170,32 @@ fun LockscreenEditScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text(
-                text = randomDate,
-                color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Normal,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = randomDate.first,
+                    color = if (isBlurEnabled) monthColor.copy(alpha = 0.6f) else monthColor,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Normal
+                )
+                Text(
+                    text = "${randomDate.second}日",
+                    color = if (isBlurEnabled) dayColor.copy(alpha = 0.6f) else dayColor,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Normal,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+                Text(
+                    text = randomDate.third,
+                    color = if (isBlurEnabled) weekdayColor.copy(alpha = 0.6f) else weekdayColor,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Normal,
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+            }
+            
+            Spacer(modifier = Modifier.height(16.dp))
             
             val timeParts = randomTime.split(":")
             Row(
@@ -178,7 +209,7 @@ fun LockscreenEditScreen(
                 )
                 Text(
                     text = ":",
-                    color = if (isBlurEnabled) Color.White.copy(alpha = 0.6f) else Color.White,
+                    color = if (isBlurEnabled) dotColor.copy(alpha = 0.6f) else dotColor,
                     fontSize = 96.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -192,26 +223,57 @@ fun LockscreenEditScreen(
             }
         }
         
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 32.dp)
                 .padding(bottom = 48.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            EditOption(
-                text = stringResource(id = R.string.hour_color),
-                onClick = { showHourColorPicker = true }
-            )
-            EditOption(
-                text = stringResource(id = R.string.minute_color),
-                onClick = { showMinuteColorPicker = true }
-            )
-            EditOption(
-                text = stringResource(id = R.string.blur_clock),
-                onClick = { showBlurDialog = true }
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                EditOption(
+                    text = stringResource(id = R.string.hour_color),
+                    onClick = { showHourColorPicker = true }
+                )
+                EditOption(
+                    text = stringResource(id = R.string.minute_color),
+                    onClick = { showMinuteColorPicker = true }
+                )
+                EditOption(
+                    text = stringResource(id = R.string.weekday_color),
+                    onClick = { showWeekdayColorPicker = true }
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                EditOption(
+                    text = stringResource(id = R.string.month_color),
+                    onClick = { showMonthColorPicker = true }
+                )
+                EditOption(
+                    text = stringResource(id = R.string.day_color),
+                    onClick = { showDayColorPicker = true }
+                )
+                EditOption(
+                    text = stringResource(id = R.string.dot_color),
+                    onClick = { showDotColorPicker = true }
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                EditOption(
+                    text = stringResource(id = R.string.blur_clock),
+                    onClick = { showBlurDialog = true }
+                )
+            }
         }
     }
     
@@ -232,6 +294,46 @@ fun LockscreenEditScreen(
                 showMinuteColorPicker = false
             },
             onDismiss = { showMinuteColorPicker = false }
+        )
+    }
+    
+    if (showWeekdayColorPicker) {
+        ColorPickerDialog(
+            onColorSelected = { color ->
+                weekdayColor = color
+                showWeekdayColorPicker = false
+            },
+            onDismiss = { showWeekdayColorPicker = false }
+        )
+    }
+    
+    if (showMonthColorPicker) {
+        ColorPickerDialog(
+            onColorSelected = { color ->
+                monthColor = color
+                showMonthColorPicker = false
+            },
+            onDismiss = { showMonthColorPicker = false }
+        )
+    }
+    
+    if (showDayColorPicker) {
+        ColorPickerDialog(
+            onColorSelected = { color ->
+                dayColor = color
+                showDayColorPicker = false
+            },
+            onDismiss = { showDayColorPicker = false }
+        )
+    }
+    
+    if (showDotColorPicker) {
+        ColorPickerDialog(
+            onColorSelected = { color ->
+                dotColor = color
+                showDotColorPicker = false
+            },
+            onDismiss = { showDotColorPicker = false }
         )
     }
     

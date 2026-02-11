@@ -35,6 +35,10 @@
     <string name="depth_of_field">景深</string>
     <string name="hour_color">小时颜色</string>
     <string name="minute_color">分钟颜色</string>
+    <string name="weekday_color">星期颜色</string>
+    <string name="month_color">月份颜色</string>
+    <string name="day_color">日期颜色</string>
+    <string name="dot_color">冒号颜色</string>
     <string name="blur_clock">模糊时钟</string>
     <string name="select_color">选择颜色</string>
     <string name="hex_color_input">16进制颜色 (RRGGBB 或 AARRGGBB)</string>
