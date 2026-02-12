@@ -54,8 +54,6 @@
     <!-- Color -->
     <string name="hour_color">Hour Color</string>
     <string name="minute_color">Minute Color</string>
-    <string name="weekday_color">Weekday Color</string>
-    <string name="month_color">Month Color</string>
     <string name="day_color">Day Color</string>
     <string name="dot_color">Dot Color</string>
     <string name="select_color">Select Color</string>

@@ -63,9 +63,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.avium.lockscreenedit.R
 import org.avium.lockscreenedit.viewmodel.LockscreenViewModel
-import kotlin.random.Random
 import kotlin.math.*
-import kotlin.math.pow
 
 @Composable
 fun LockscreenEditScreen(
@@ -82,41 +80,30 @@ fun LockscreenEditScreen(
     
     var hourColor by remember { mutableStateOf(Color.White) }
     var minuteColor by remember { mutableStateOf(Color.White) }
-    var weekdayColor by remember { mutableStateOf(Color.White) }
-    var monthColor by remember { mutableStateOf(Color.White) }
     var dayColor by remember { mutableStateOf(Color.White) }
     var dotColor by remember { mutableStateOf(Color.White) }
     var showHourColorPicker by remember { mutableStateOf(false) }
     var showMinuteColorPicker by remember { mutableStateOf(false) }
-    var showWeekdayColorPicker by remember { mutableStateOf(false) }
-    var showMonthColorPicker by remember { mutableStateOf(false) }
     var showDayColorPicker by remember { mutableStateOf(false) }
     var showDotColorPicker by remember { mutableStateOf(false) }
     var showBlurDialog by remember { mutableStateOf(false) }
     var isBlurEnabled by remember { mutableStateOf(false) }
     
-    val randomTime = remember {
-        val hour = Random.nextInt(0, 24)
-        val minute = Random.nextInt(0, 60)
+    val currentTime = remember {
+        val calendar = java.util.Calendar.getInstance()
+        val hour = calendar.get(java.util.Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(java.util.Calendar.MINUTE)
         String.format("%02d:%02d", hour, minute)
     }
     
-    val randomDate = remember {
+    val currentDate = remember {
+        val calendar = java.util.Calendar.getInstance()
+        val day = calendar.get(java.util.Calendar.DAY_OF_MONTH)
+        val monthIndex = calendar.get(java.util.Calendar.MONTH)
+        
         val months = listOf("1月", "2月", "3月", "4月", "5月", "6月", 
                           "7月", "8月", "9月", "10月", "11月", "12月")
-        val weekdays = listOf(
-            context.getString(R.string.monday),
-            context.getString(R.string.tuesday), 
-            context.getString(R.string.wednesday), 
-            context.getString(R.string.thursday), 
-            context.getString(R.string.friday), 
-            context.getString(R.string.saturday), 
-            context.getString(R.string.sunday)
-        )
-        val day = Random.nextInt(1, 29)
-        val month = months[Random.nextInt(months.size)]
-        val weekday = weekdays[Random.nextInt(weekdays.size)]
-        Triple(month, day, weekday)
+        Pair(months[monthIndex], day)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -147,8 +134,6 @@ fun LockscreenEditScreen(
                         styleId = styleId,
                         hourColor = hourColor,
                         minuteColor = minuteColor,
-                        weekdayColor = weekdayColor,
-                        monthColor = monthColor,
                         dayColor = dayColor,
                         dotColor = dotColor,
                         isBlurEnabled = isBlurEnabled
@@ -174,30 +159,23 @@ fun LockscreenEditScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = randomDate.first,
-                    color = if (isBlurEnabled) monthColor.copy(alpha = 0.6f) else monthColor,
+                    text = currentDate.first,
+                    color = if (isBlurEnabled) dayColor.copy(alpha = 0.6f) else dayColor,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal
                 )
                 Text(
-                    text = "${randomDate.second}日",
+                    text = "${currentDate.second}日",
                     color = if (isBlurEnabled) dayColor.copy(alpha = 0.6f) else dayColor,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.padding(horizontal = 4.dp)
                 )
-                Text(
-                    text = randomDate.third,
-                    color = if (isBlurEnabled) weekdayColor.copy(alpha = 0.6f) else weekdayColor,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
             }
             
             Spacer(modifier = Modifier.height(16.dp))
             
-            val timeParts = randomTime.split(":")
+            val timeParts = currentTime.split(":")
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -243,19 +221,11 @@ fun LockscreenEditScreen(
                     text = stringResource(id = R.string.minute_color),
                     onClick = { showMinuteColorPicker = true }
                 )
-                EditOption(
-                    text = stringResource(id = R.string.weekday_color),
-                    onClick = { showWeekdayColorPicker = true }
-                )
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                EditOption(
-                    text = stringResource(id = R.string.month_color),
-                    onClick = { showMonthColorPicker = true }
-                )
                 EditOption(
                     text = stringResource(id = R.string.day_color),
                     onClick = { showDayColorPicker = true }
@@ -294,26 +264,6 @@ fun LockscreenEditScreen(
                 showMinuteColorPicker = false
             },
             onDismiss = { showMinuteColorPicker = false }
-        )
-    }
-    
-    if (showWeekdayColorPicker) {
-        ColorPickerDialog(
-            onColorSelected = { color ->
-                weekdayColor = color
-                showWeekdayColorPicker = false
-            },
-            onDismiss = { showWeekdayColorPicker = false }
-        )
-    }
-    
-    if (showMonthColorPicker) {
-        ColorPickerDialog(
-            onColorSelected = { color ->
-                monthColor = color
-                showMonthColorPicker = false
-            },
-            onDismiss = { showMonthColorPicker = false }
         )
     }
     

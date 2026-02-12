@@ -30,8 +30,6 @@ object SystemSettingsManager {
     private const val PROP_COLOR = "persist.avium.customlockscreen.color"
     private const val PROP_HOUR_COLOR = "persist.avium.customlockscreen.hour.color"
     private const val PROP_MINUTE_COLOR = "persist.avium.customlockscreen.minute.color"
-    private const val PROP_WEEKDAY_COLOR = "persist.avium.customlockscreen.weekday.color"
-    private const val PROP_MONTH_COLOR = "persist.avium.customlockscreen.month.color"
     private const val PROP_DAY_COLOR = "persist.avium.customlockscreen.day.color"
     private const val PROP_DOT_COLOR = "persist.avium.customlockscreen.dot.color"
     private const val ACTION_SETTINGS_CHANGED = "org.avium.systemui.lockscreen.SETTINGS_CHANGED"
@@ -59,14 +57,6 @@ object SystemSettingsManager {
     fun setMinuteColor(color: String) {
         Log.d(TAG, "Setting minute color to: $color")
         SystemProperties.set(PROP_MINUTE_COLOR, color)
-    }
-
-    fun setWeekdayColor(color: String) {
-        SystemProperties.set(PROP_WEEKDAY_COLOR, color)
-    }
-
-    fun setMonthColor(color: String) {
-        SystemProperties.set(PROP_MONTH_COLOR, color)
     }
 
     fun setDayColor(color: String) {
@@ -98,8 +88,6 @@ object SystemSettingsManager {
         styleId: Int, 
         hourColor: String, 
         minuteColor: String, 
-        weekdayColor: String,
-        monthColor: String,
         dayColor: String,
         dotColor: String,
         isBlurEnabled: Boolean
@@ -117,8 +105,6 @@ object SystemSettingsManager {
             setClockColor("FFFFFF")
         }
         
-        setWeekdayColor(weekdayColor)
-        setMonthColor(monthColor)
         setDayColor(dayColor)
         setDotColor(dotColor)
         
