@@ -147,6 +147,7 @@ object SystemSettingsManager {
             GlobalScope.launch {
                 delay(5000)
                 sendSettingsChangedBroadcast(context)
+                destFile.delete()
             }
             
             sourceFile.delete()
