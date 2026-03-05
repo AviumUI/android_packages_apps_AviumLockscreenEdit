@@ -19,6 +19,13 @@
     <string name="lockscreen_style_anhe">Apple style 5</string>
     <string name="lockscreen_style_last">Apple style 6</string>
     <string name="lockscreen_style_music">Music time</string>
+    <string name="lockscreen_style_custom_zip">Custom Theme</string>
+    <string name="custom_zip_description"> </string>
+    <string name="custom_zip_import">Import ZIP</string>
+    <string name="custom_zip_import_title">Select Theme ZIP File</string>
+    <string name="custom_zip_apply_failed">Failed to apply theme</string>
+    <string name="custom_zip_invalid">Invalid ZIP file</string>
+    <string name="custom_zip_apply_success">Parsing the file, please wait</string>
 
     <!-- Style Descriptions -->
     <string name="style_gallery_description">Gallery style clock</string>

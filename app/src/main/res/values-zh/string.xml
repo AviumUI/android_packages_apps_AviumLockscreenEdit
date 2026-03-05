@@ -71,4 +71,11 @@
     <string name="date_format">%1$s%2$d日 %3$s</string>
     <string name="cancel">取消</string>
     <string name="lockscreen_style_music">独乐何时</string>
+    <string name="lockscreen_style_custom_zip">自定义主题</string>
+    <string name="custom_zip_description"> </string>
+    <string name="custom_zip_import">导入ZIP</string>
+    <string name="custom_zip_import_title">选择主题ZIP文件</string>
+    <string name="custom_zip_apply_success">正在解析文件应用，请稍后</string>
+    <string name="custom_zip_apply_failed">应用主题失败</string>
+    <string name="custom_zip_invalid">无效的ZIP文件</string>
 </resources>

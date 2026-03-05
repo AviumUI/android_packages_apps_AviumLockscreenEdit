@@ -17,12 +17,17 @@
 package org.avium.lockscreenedit.list
 
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -62,6 +67,14 @@ fun LockscreenListScreen(
     val pagerState = rememberPagerState(pageCount = { StyleConfig.getStyleCount() })
     val context = LocalContext.current
 
+    val filePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        uri?.let {
+            viewModel.importAndApplyCustomZip(context, it)
+        }
+    }
+
     Scaffold(
         containerColor = Color.Black,
         topBar = {
@@ -81,12 +94,23 @@ fun LockscreenListScreen(
                 Button(
                     onClick = {
                         val selectedStyle = viewModel.clockStyles[pagerState.currentPage]
-                        viewModel.onApply(context, selectedStyle.id)
-                        activity.finish() // Apply and exit
+                        if (selectedStyle.id == 99) {
+                            filePickerLauncher.launch(arrayOf("application/zip"))
+                        } else {
+                            viewModel.onApply(context, selectedStyle.id)
+                            activity.finish() // Apply and exit
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF007AFF))
                 ) {
-                    Text(text = stringResource(id = R.string.apply), color = Color.White)
+                    Text(
+                        text = if (viewModel.clockStyles[pagerState.currentPage].id == 99) {
+                            stringResource(id = R.string.custom_zip_import)
+                        } else {
+                            stringResource(id = R.string.apply)
+                        },
+                        color = Color.White
+                    )
                 }
             }
         }
@@ -141,15 +165,18 @@ fun LockscreenListScreen(
                         .aspectRatio(9f/19f)
                         .clip(RoundedCornerShape(24.dp))
                 ) {
-                    Image(
-                        painter = painterResource(id = style.previewResId),
-                        contentDescription = stringResource(id = style.nameResId),
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-
+                    if (style.id == 99) {
+                        CustomZipPreview()
+                    } else {
+                        Image(
+                            painter = painterResource(id = style.previewResId),
+                            contentDescription = stringResource(id = style.nameResId),
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                     // Show "Customize" button only on the centered item
-                    if (pagerState.currentPage == page) {
+                    if (pagerState.currentPage == page && style.id != 99) {
                         Button(
                             onClick = { navController.navigate("edit/${style.id}") },
                             modifier = Modifier
@@ -170,5 +197,22 @@ fun LockscreenListScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun CustomZipPreview() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = stringResource(id = R.string.custom_zip_import),
+            tint = Color(0xFF007AFF),
+            modifier = Modifier.size(80.dp)
+        )
     }
 }

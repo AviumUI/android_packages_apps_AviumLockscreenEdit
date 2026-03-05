@@ -18,5 +18,7 @@
     <privapp-permissions package="org.avium.lockscreenedit">
         <permission name="android.permission.WRITE_SETTINGS"/>
         <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" />
     </privapp-permissions>
 </permissions>

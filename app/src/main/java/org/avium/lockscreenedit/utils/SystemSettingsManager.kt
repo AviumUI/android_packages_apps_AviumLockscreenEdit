@@ -18,8 +18,13 @@ package org.avium.lockscreenedit.utils
 
 import android.content.Context
 import android.content.Intent
+import android.os.Environment
 import android.os.SystemProperties
 import android.util.Log
+import kotlinx.coroutines.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 object SystemSettingsManager {
 
@@ -33,6 +38,10 @@ object SystemSettingsManager {
     private const val PROP_DAY_COLOR = "persist.avium.customlockscreen.day.color"
     private const val PROP_DOT_COLOR = "persist.avium.customlockscreen.dot.color"
     private const val ACTION_SETTINGS_CHANGED = "org.avium.systemui.lockscreen.SETTINGS_CHANGED"
+
+    private const val ACTION_APPLY_THEME = "org.avium.lockscreen.APPLY_THEME"
+    private const val EXTRA_ZIP_PATH = "zip_path"
+    private const val EXTRA_THEME_NAME = "theme_name"
 
     fun setEnabled(enabled: Boolean) {
         Log.d(TAG, "Setting lockscreen enabled to: $enabled")
@@ -109,5 +118,41 @@ object SystemSettingsManager {
         setDotColor(dotColor)
         
         sendSettingsChangedBroadcast(context)
+    }
+
+    fun applyCustomZipTheme(context: Context, sourceFile: File, themeName: String) {
+        
+        try {
+            val publicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            if (!publicDir.exists()) {
+                publicDir.mkdirs()
+            }
+            
+            val destFile = File(publicDir, "lockscreen-theme-${System.currentTimeMillis()}.zip")
+            
+            FileInputStream(sourceFile).use { fis ->
+                FileOutputStream(destFile).use { fos ->
+                    fis.copyTo(fos)
+                }
+            }
+            
+            val intent = Intent(ACTION_APPLY_THEME)
+            intent.putExtra(EXTRA_ZIP_PATH, destFile.absolutePath)
+            intent.putExtra(EXTRA_THEME_NAME, themeName)
+            context.sendBroadcast(intent)
+            
+            setEnabled(true)
+            setClockType(19)
+            
+            GlobalScope.launch {
+                delay(5000)
+                sendSettingsChangedBroadcast(context)
+            }
+            
+            sourceFile.delete()
+            
+        } catch (e: Exception) {
+            throw e
+        }
     }
 }

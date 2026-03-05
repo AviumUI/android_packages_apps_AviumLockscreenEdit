@@ -17,11 +17,17 @@
 package org.avium.lockscreenedit.viewmodel
 
 import android.content.Context
+import android.net.Uri
+import android.provider.OpenableColumns
+import android.widget.Toast
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
+import org.avium.lockscreenedit.R
 import org.avium.lockscreenedit.config.StyleConfig
 import org.avium.lockscreenedit.utils.SystemSettingsManager
+import java.io.File
+import java.io.FileOutputStream
 
 class LockscreenViewModel : ViewModel() {
 
@@ -54,5 +60,59 @@ class LockscreenViewModel : ViewModel() {
             dotColorHex,
             isBlurEnabled
         )
+    }
+
+    fun importAndApplyCustomZip(context: Context, uri: Uri) {
+        try {
+            val themeName = getFileName(context, uri)?.let { name ->
+                if (name.endsWith(".zip", ignoreCase = true)) {
+                    name.substring(0, name.length - 4)
+                } else {
+                    name
+                }
+            } ?: "custom_theme_${System.currentTimeMillis()}"
+
+            val cacheDir = context.cacheDir
+            val zipFile = File(cacheDir, "$themeName.zip")
+
+            context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                FileOutputStream(zipFile).use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+
+            SystemSettingsManager.applyCustomZipTheme(context, zipFile, themeName)
+            
+            Toast.makeText(
+                context,
+                context.getString(R.string.custom_zip_apply_success),
+                Toast.LENGTH_SHORT
+            ).show()
+
+        } catch (e: Exception) {
+            Toast.makeText(
+                context,
+                context.getString(R.string.custom_zip_apply_failed) + ": ${e.message}",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun getFileName(context: Context, uri: Uri): String? {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                if (cursor.moveToFirst()) {
+                    val idx = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                    if (idx >= 0) {
+                        result = cursor.getString(idx)
+                    }
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.lastPathSegment
+        }
+        return result
     }
 }
