@@ -120,6 +120,14 @@ object SystemSettingsManager {
         sendSettingsChangedBroadcast(context)
     }
 
+    fun getCurrentStyleId(): Int {
+        return try {
+            SystemProperties.get(PROP_TYPE, "1").toInt()
+        } catch (e: Exception) {
+            1
+        }
+    }
+
     fun applyCustomZipTheme(context: Context, sourceFile: File, themeName: String) {
         
         try {

@@ -16,6 +16,7 @@
 
 package org.avium.lockscreenedit.list
 
+import android.content.res.Configuration
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,12 +32,14 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -49,6 +52,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.avium.lockscreenedit.R
 import org.avium.lockscreenedit.config.StyleConfig
+import org.avium.lockscreenedit.utils.SystemSettingsManager
 import org.avium.lockscreenedit.viewmodel.LockscreenViewModel
 import kotlin.math.absoluteValue
 
@@ -64,8 +68,18 @@ fun LockscreenListScreen(
         systemUiController.isSystemBarsVisible = false
     }
 
-    val pagerState = rememberPagerState(pageCount = { StyleConfig.getStyleCount() })
     val context = LocalContext.current
+
+    val initialPage = remember {
+        val currentStyleId = SystemSettingsManager.getCurrentStyleId()
+        val index = StyleConfig.availableStyles.indexOfFirst { it.id == currentStyleId }
+        if (index >= 0) index else 0
+    }
+
+    val pagerState = rememberPagerState(
+        initialPage = initialPage,
+        pageCount = { StyleConfig.getStyleCount() }
+    )
 
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
@@ -115,6 +129,9 @@ fun LockscreenListScreen(
             }
         }
     ) { paddingValues ->
+        val configuration = LocalConfiguration.current
+        val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -132,71 +149,109 @@ fun LockscreenListScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            HorizontalPager(
-                state = pagerState,
-                contentPadding = PaddingValues(horizontal = 64.dp), // Allows peeking of side items
-                modifier = Modifier.fillMaxHeight()
-            ) { page ->
-                val style = viewModel.clockStyles[page]
-                Box(
-                    modifier = Modifier
-                        .graphicsLayer {
-                            val pageOffset = (
-                                    (pagerState.currentPage - page) + pagerState
-                                        .currentPageOffsetFraction
-                                    ).absoluteValue
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(horizontal = 16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                HorizontalPager(
+                    state = pagerState,
+                    contentPadding = PaddingValues(horizontal = if (isLandscape) 80.dp else 48.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) { page ->
+                    val style = viewModel.clockStyles[page]
+                    val previewResId = if (isLandscape && style.id != 99) {
+                        getPadPreviewResource(style.previewResId)
+                    } else {
+                        style.previewResId
+                    }
+                    Box(
+                        modifier = Modifier
+                            .graphicsLayer {
+                                val pageOffset = (
+                                        (pagerState.currentPage - page) + pagerState
+                                            .currentPageOffsetFraction
+                                        ).absoluteValue
 
-                            // We apply the animation effect for items that are not centered
-                            val scale = lerp(
-                                start = 0.85f,
-                                stop = 1f,
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                            )
-                            scaleX = scale
-                            scaleY = scale
+                                val scale = lerp(
+                                    start = 0.85f,
+                                    stop = 1f,
+                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                )
+                                scaleX = scale
+                                scaleY = scale
 
-                            alpha = lerp(
-                                start = 0.5f,
-                                stop = 1f,
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                alpha = lerp(
+                                    start = 0.5f,
+                                    stop = 1f,
+                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                )
+                            }
+                            .fillMaxWidth()
+                            .aspectRatio(if (isLandscape) 19f/9f else 9f/19f)
+                            .clip(RoundedCornerShape(24.dp))
+                            .background(Color.Black)
+                    ) {
+                        if (style.id == 99) {
+                            CustomZipPreview()
+                        } else {
+                            Image(
+                                painter = painterResource(id = previewResId),
+                                contentDescription = stringResource(id = style.nameResId),
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(RoundedCornerShape(24.dp))
                             )
                         }
-                        .fillMaxWidth()
-                        .aspectRatio(9f/19f)
-                        .clip(RoundedCornerShape(24.dp))
-                ) {
-                    if (style.id == 99) {
-                        CustomZipPreview()
-                    } else {
-                        Image(
-                            painter = painterResource(id = style.previewResId),
-                            contentDescription = stringResource(id = style.nameResId),
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
-                    // Show "Customize" button only on the centered item
-                    if (pagerState.currentPage == page && style.id != 99) {
-                        Button(
-                            onClick = { navController.navigate("edit/${style.id}") },
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(bottom = 24.dp),
-                            shape = RoundedCornerShape(50),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color.Black.copy(alpha = 0.5f)
-                            )
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.customize),
-                                color = Color.White,
-                                modifier = Modifier.padding(horizontal = 16.dp)
-                            )
+                        if (pagerState.currentPage == page && style.id != 99) {
+                            Button(
+                                onClick = { navController.navigate("edit/${style.id}") },
+                                modifier = Modifier
+                                    .align(Alignment.BottomCenter)
+                                    .padding(bottom = 24.dp),
+                                shape = RoundedCornerShape(50),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color.Black.copy(alpha = 0.5f)
+                                )
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.customize),
+                                    color = Color.White,
+                                    modifier = Modifier.padding(horizontal = 16.dp)
+                                )
+                            }
                         }
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
+    }
+}
+
+private fun getPadPreviewResource(phonePreviewResId: Int): Int {
+    return when (phonePreviewResId) {
+        R.drawable.preview_style_1 -> R.drawable.preview_style_pad_1
+        R.drawable.preview_style_2 -> R.drawable.preview_style_pad_2
+        R.drawable.preview_style_3 -> R.drawable.preview_style_pad_3
+        R.drawable.preview_style_4 -> R.drawable.preview_style_pad_4
+        R.drawable.preview_style_5 -> R.drawable.preview_style_pad_5
+        R.drawable.preview_style_6 -> R.drawable.preview_style_pad_6
+        R.drawable.preview_style_8 -> R.drawable.preview_style_pad_8
+        R.drawable.preview_style_9 -> R.drawable.preview_style_pad_9
+        R.drawable.preview_style_10 -> R.drawable.preview_style_pad_10
+        R.drawable.preview_style_11 -> R.drawable.preview_style_pad_11
+        R.drawable.preview_style_12 -> R.drawable.preview_style_pad_12
+        R.drawable.preview_style_13 -> R.drawable.preview_style_pad_13
+        R.drawable.preview_style_14 -> R.drawable.preview_style_pad_14
+        R.drawable.preview_style_15 -> R.drawable.preview_style_pad_15
+        R.drawable.preview_style_16 -> R.drawable.preview_style_pad_16
+        R.drawable.preview_style_17 -> R.drawable.preview_style_pad_17
+        else -> phonePreviewResId
     }
 }
 
