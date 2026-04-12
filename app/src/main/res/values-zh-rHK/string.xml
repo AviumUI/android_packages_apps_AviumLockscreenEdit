@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2025-2026 The AviumUI Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <string name="app_name">LockScreenEdit</string>
+    <string name="lockscreen_style_title">圓潤何時</string>
+    <string name="lockscreen_style_magazine">平齊何時</string>
+    <string name="lockscreen_style_vertical">豎文何時</string>
+    <string name="lockscreen_style_text">文字何時</string>
+    <string name="lockscreen_style_gallery">長廊何時</string>
+    <string name="style_gallery_description"> </string>
+    <string name="lockscreen_style_longer">更長何時</string>
+    <string name="style_longer_description"> </string>
+    <string name="lockscreen_style_classic">經典何時</string>
+    <string name="style_classic_description"> </string>
+    <string name="lockscreen_style_rolling">滾滾何時</string>
+    <string name="style_rolling_description"> </string>
+    <string name="lockscreen_style_anytime">無論何時</string>
+    <string name="style_anytime_description"> </string>
+    <string name="lockscreen_style_square">果方何時</string>
+    <string name="style_square_description"> </string>
+    <string name="lockscreen_style_flat">果平何時</string>
+    <string name="style_flat_description"> </string>
+    <string name="lockscreen_style_fruity">果味何時</string>
+    <string name="style_fruity_description"> </string>
+    <string name="lockscreen_style_guodian">果典何時</string>
+    <string name="style_guodian_description"> </string>
+    <string name="lockscreen_style_anhe">果安何時</string>
+    <string name="style_anhe_description"> </string>
+    <string name="lockscreen_style_last">最果何時</string>
+    <string name="style_last_description"> </string>
+    <string name="exit">退出</string>
+    <string name="apply">套用</string>
+    <string name="customize">自訂</string>
+    <string name="wallpaper">壁紙</string>
+    <string name="wallpaper_effects">壁紙效果</string>
+    <string name="font_effects">字體效果</string>
+    <string name="depth_of_field">景深</string>
+    <string name="hour_color">小時顏色</string>
+    <string name="minute_color">分鐘顏色</string>
+    <string name="day_color">日期顏色</string>
+    <string name="dot_color">冒號顏色</string>
+    <string name="blur_clock">模糊時鐘</string>
+    <string name="select_color">選擇顏色</string>
+    <string name="hex_color_input">16進制顏色 (RRGGBB 或 AARRGGBB)</string>
+    <string name="hex_color_placeholder">FF0000</string>
+    <string name="click_to_select">點按以選擇此顏色</string>
+    <string name="blur_effect">模糊效果</string>
+    <string name="blur_description">開啟後時鐘將會有模糊效果</string>
+    <string name="confirm">確定</string>
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wednesday">星期三</string>
+    <string name="thursday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="saturday">星期六</string>
+    <string name="sunday">星期日</string>
+    <string name="style_humanistic_description"> </string>
+    <string name="style_magazine_description"> </string>
+    <string name="style_vertical_description"> </string>
+    <string name="style_text_description"> </string>
+    <string name="month_january">1月</string>
+    <string name="month_february">2月</string>
+    <string name="month_march">3月</string>
+    <string name="month_april">4月</string>
+    <string name="month_may">5月</string>
+    <string name="month_june">6月</string>
+    <string name="month_july">7月</string>
+    <string name="month_august">8月</string>
+    <string name="month_september">9月</string>
+    <string name="month_october">10月</string>
+    <string name="month_november">11月</string>
+    <string name="month_december">12月</string>
+    <string name="date_format">%1$s%2$d日 %3$s</string>
+    <string name="cancel">取消</string>
+    <string name="lockscreen_style_music">獨樂何時</string>
+    <string name="lockscreen_style_custom_zip">自訂主題</string>
+    <string name="custom_zip_description"> </string>
+    <string name="custom_zip_import">匯入ZIP</string>
+    <string name="custom_zip_import_title">選擇主題ZIP檔案</string>
+    <string name="custom_zip_apply_success">正在解析檔案並套用，請稍候</string>
+    <string name="custom_zip_apply_failed">套用主題失敗</string>
+    <string name="custom_zip_invalid">無效的ZIP檔案</string>
+</resources>
